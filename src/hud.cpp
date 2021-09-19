@@ -3,6 +3,7 @@
 #include "universe.h"
 
 #include "imgui.h"
+#include <random>
 
 CelestialBody* Hud::selectedBody;
 
@@ -52,7 +53,10 @@ void Hud::render() {
 	ImGui::SliderInt("Simulation speed", &Simulation::TPS, 1, 1000, "%d steps/second");
 	ImGui::SliderFloat("Gravitational strength", &Universe::G, 0, 0.001, "%.5f");
 	if(ImGui::Button("Add body")) {
-		BodyManager::add(CelestialBody(Vec2d(500 - Camera::offsetX, 500 - Camera::offsetY), 100, 10, sf::Color::White));
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution distr(0, 255);
+		BodyManager::add(CelestialBody(Vec2d(500 - Camera::offsetX, 500 - Camera::offsetY), 100, 10, sf::Color(distr(gen), distr(gen), distr(gen))));
 	}
 	if(ImGui::Button("Reset")) {
 		BodyManager::resetBodies();
