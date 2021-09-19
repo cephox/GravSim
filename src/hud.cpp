@@ -56,4 +56,9 @@ void Hud::render() {
 		BodyManager::resetBodies();
 	}
 	ImGui::End();
+
+	// Help Window
+	ImGui::Begin("Help", nullptr, ImGuiWindowFlags_NoResize);
+	ImGui::TextWrapped("GravSim is a simple 2D newtonian gravitation simulation.\nTo select a body, you need to click it.\n\nKeyboard shortcuts:\n- Space: pause / unpause the simulation\n- Arrow Keys: Move the camera");
+	ImGui::End();
 }
