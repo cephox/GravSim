@@ -31,7 +31,7 @@ public:
 	void updateVel();
 
 	Vec2d getTotalGForce();
-	void render(sf::RenderWindow& window);
+	void render(sf::RenderTexture& window);
 
 	bool operator==(const CelestialBody& other);
 };
@@ -43,7 +43,7 @@ public:
 	static void add(CelestialBody body);
 	static void remove(CelestialBody body);
 	static void tick();
-	static void render(sf::RenderWindow& window);
+	static void render(sf::RenderTexture& window);
 	static void clear();
 
 	static void resetBodies();

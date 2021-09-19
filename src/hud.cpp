@@ -5,7 +5,6 @@
 #include "imgui.h"
 
 CelestialBody* Hud::selectedBody;
-sf::Font Hud::font;
 
 void Hud::render() {
 	ImGuiWindowFlags winFlags = 0;

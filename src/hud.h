@@ -10,7 +10,6 @@
 
 class Hud {
 public:
-	static sf::Font font;
 	static CelestialBody *selectedBody;
 
 	void render();

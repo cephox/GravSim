@@ -1,6 +1,7 @@
 #include "body.h"
 #include "universe.h"
 #include "hud.h"
+#include "camera.h"
 
 #include <SFML/Graphics/CircleShape.hpp>
 #include <algorithm>
@@ -40,7 +41,7 @@ Vec2d CelestialBody::getTotalGForce() {
 	return totalForce;
 }
 
-void CelestialBody::render(sf::RenderWindow& window) {
+void CelestialBody::render(sf::RenderTexture& window) {
 	sf::CircleShape circle(this->radius, 512);
 	circle.setPosition(this->pos.x - this->radius, this->pos.y - this->radius);
 	circle.setFillColor(this->color);
@@ -51,7 +52,6 @@ void CelestialBody::render(sf::RenderWindow& window) {
 	}
 
 	window.draw(circle);
-
 }
 
 bool CelestialBody::operator==(const CelestialBody &other) {
@@ -94,7 +94,7 @@ void BodyManager::tick() {
 		BodyManager::bodies[i].updatePos();
 	}
 }
-void BodyManager::render(sf::RenderWindow& window) {
+void BodyManager::render(sf::RenderTexture& window) {
 	for(CelestialBody body : BodyManager::getState()) {
 		body.render(window);
 	}
@@ -108,6 +108,9 @@ std::vector<CelestialBody> BodyManager::getState() {
 }
 
 CelestialBody* BodyManager::getBody(int x, int y) {
+	x -= Camera::offsetX;
+	y -= Camera::offsetY;
+
 	for(long unsigned int i = 0; i < BodyManager::bodies.size(); i++) {
 		double dx = x - BodyManager::bodies[i].pos.x;
 		double dy = y - BodyManager::bodies[i].pos.y;
