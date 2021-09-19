@@ -34,7 +34,21 @@ void Hud::render() {
 
 		ImGui::SliderFloat("Mass", &selectedBody->mass, 1, 2000000);
 		ImGui::SliderInt("Radius", &selectedBody->radius, 1, 50);
-		ImGui::Text("Velocity: %f pixels/step", selectedBody->vel.magnitude());
+
+		ImGui::Text("Velocity");
+
+		float magnitude = (float) selectedBody->vel.magnitude();
+		ImGui::DragFloat("Speed", &magnitude, 0.05, -0, 100000, "%f pixels/step");
+		selectedBody->vel.setMagnitude(magnitude > 0 ? magnitude : 0);
+		
+		float x = (float) selectedBody->vel.x;
+		ImGui::DragFloat("X Speed", &x, 0.05, -100000, 100000, "%f pixels/step");
+		selectedBody->vel.x = x;
+
+		float y = (float) selectedBody->vel.y;
+		ImGui::DragFloat("Y Speed", &y, 0.05, -100000, 100000, "%f pixels/step");
+		selectedBody->vel.y = y;
+
 		ImGui::Checkbox("Affected by gravity", &selectedBody->affectedByGravity);
 		ImGui::Checkbox("Affects others", &selectedBody->affectsOthers);
 		if(ImGui::Button("Remove celestial body")) {
@@ -60,6 +74,8 @@ void Hud::render() {
 	}
 	if(ImGui::Button("Reset")) {
 		BodyManager::resetBodies();
+		Camera::offsetX = 0;
+		Camera::offsetY = 0;
 	}
 	ImGui::End();
 
