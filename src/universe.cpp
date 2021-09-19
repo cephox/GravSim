@@ -1,4 +1,3 @@
 #include "universe.h"
 
-double Universe::G = 0.0001;
-
+float Universe::G = 0.0001;

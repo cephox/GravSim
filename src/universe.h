@@ -2,5 +2,5 @@
 
 class Universe {
 public:
-	static double G;
+	static float G;
 };

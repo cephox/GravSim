@@ -1,10 +1,8 @@
 #include "hud.h"
 #include "simulation.h"
+#include "universe.h"
 
 #include "imgui.h"
-#include "imgui-SFML.h"
-
-#include <iostream>
 
 CelestialBody* Hud::selectedBody;
 sf::Font Hud::font;
@@ -12,9 +10,10 @@ sf::Font Hud::font;
 void Hud::render() {
 	ImGuiWindowFlags winFlags = 0;
 	winFlags |= ImGuiWindowFlags_NoResize;
-	winFlags |= ImGuiWindowFlags_NoMove;
 	winFlags |= ImGuiWindowFlags_NoCollapse;
+	winFlags |= ImGuiWindowFlags_AlwaysAutoResize;
 
+	// Body settings window
 	ImGui::Begin("Body Setttings", nullptr, winFlags);
 	if(selectedBody) {	
 		float color[3] = {
@@ -43,8 +42,18 @@ void Hud::render() {
 			selectedBody = nullptr;
 		}
 	} else {
-		ImGui::Text("\n\n\n\n\tNo body selected");
-		ImGui::Text("\tSelect one by clicking");
+		ImGui::Text("No body selected");
+		ImGui::Text("Select one by clicking");
+	}
+	ImGui::End();
+
+	// Simulation settings window
+	ImGui::Begin("Simulation Settings", nullptr, winFlags);
+	ImGui::Checkbox("Paused (Space)", &Simulation::paused);
+	ImGui::SliderInt("Simulation speed", &Simulation::TPS, 1, 1000, "%d steps/second");
+	ImGui::SliderFloat("Gravitational strength", &Universe::G, 0, 0.001, "%.5f");
+	if(ImGui::Button("Reset")) {
+		BodyManager::resetBodies();
 	}
 	ImGui::End();
 }
