@@ -10,10 +10,13 @@ CelestialBody* Hud::selectedBody;
 sf::Font Hud::font;
 
 void Hud::render() {
-	ImGui::Begin("Settings");
+	ImGuiWindowFlags winFlags = 0;
+	winFlags |= ImGuiWindowFlags_NoResize;
+	winFlags |= ImGuiWindowFlags_NoMove;
+	winFlags |= ImGuiWindowFlags_NoCollapse;
 
-	if(selectedBody) {
-		
+	ImGui::Begin("Body Setttings", nullptr, winFlags);
+	if(selectedBody) {	
 		float color[3] = {
 			(float) selectedBody->color.r / 255,
 			(float) selectedBody->color.g / 255,
@@ -39,7 +42,9 @@ void Hud::render() {
 			BodyManager::remove(*selectedBody);
 			selectedBody = nullptr;
 		}
+	} else {
+		ImGui::Text("\n\n\n\n\tNo body selected");
+		ImGui::Text("\tSelect one by clicking");
 	}
-	
 	ImGui::End();
 }

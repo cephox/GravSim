@@ -47,7 +47,7 @@ void CelestialBody::render(sf::RenderWindow& window) {
 
 	if(this->selected) {
 		circle.setOutlineColor(sf::Color::Red);
-		circle.setOutlineThickness(3);
+		circle.setOutlineThickness(2);
 	}
 
 	window.draw(circle);
@@ -72,7 +72,8 @@ void BodyManager::resetBodies() {
 	BodyManager::clear();
 	BodyManager::add(CelestialBody(Vec2d(400, 500), 1000000, 20, sf::Color::Yellow));
 	BodyManager::add(CelestialBody(Vec2d(500, 500), Vec2d(0, 1), 100, 10, sf::Color(0, 150, 0)));
-
+	Hud::selectedBody = &bodies[1];
+	Hud::selectedBody->selected = true;
 }
 
 void BodyManager::add(CelestialBody body) {
