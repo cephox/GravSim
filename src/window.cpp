@@ -94,8 +94,6 @@ void windowLoop() {
 
 			if(event.type == sf::Event::KeyReleased) {
 				if(!io.WantCaptureKeyboard) {
-					if(event.key.code == sf::Keyboard::Space)
-						Simulation::paused = !Simulation::paused;
 					if(event.key.code == sf::Keyboard::Up)
 						isUp = false;
 					if(event.key.code == sf::Keyboard::Down)

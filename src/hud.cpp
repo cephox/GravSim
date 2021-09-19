@@ -51,6 +51,9 @@ void Hud::render() {
 	ImGui::Checkbox("Paused (Space)", &Simulation::paused);
 	ImGui::SliderInt("Simulation speed", &Simulation::TPS, 1, 1000, "%d steps/second");
 	ImGui::SliderFloat("Gravitational strength", &Universe::G, 0, 0.001, "%.5f");
+	if(ImGui::Button("Add body")) {
+		BodyManager::add(CelestialBody(Vec2d(500 - Camera::offsetX, 500 - Camera::offsetY), 100, 10, sf::Color::White));
+	}
 	if(ImGui::Button("Reset")) {
 		BodyManager::resetBodies();
 	}
