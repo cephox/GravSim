@@ -8,6 +8,7 @@ public:
 	double y;
 
 	Vec2d();
+	Vec2d(const Vec2d& v);
 	Vec2d(double x, double y);
 
 	static Vec2d fromAngle(double angle);

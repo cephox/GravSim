@@ -8,15 +8,19 @@
 #include <iostream>
 
 CelestialBody::CelestialBody(Vec2d pos, float mass, float radius, sf::Color color):
-	pos(pos), vel(Vec2d()), mass(mass), radius(radius), color(color), affectedByGravity(true), affectsOthers(true) {}
+	pos(pos), vel(Vec2d()), mass(mass), radius(radius), color(color), affectedByGravity(true), affectsOthers(true) {visited = std::vector<Vec2d>(200);}
 
 CelestialBody::CelestialBody(Vec2d pos, Vec2d vel, float mass, float radius, sf::Color color):
-	pos(pos), vel(vel), mass(mass), radius(radius), color(color), affectedByGravity(true), affectsOthers(true) {}
+	pos(pos), vel(vel), mass(mass), radius(radius), color(color), affectedByGravity(true), affectsOthers(true) {visited = std::vector<Vec2d>(200);}
 
 CelestialBody::CelestialBody(Vec2d pos, Vec2d vel, float mass, float radius, sf::Color color, bool affectedByGravity, bool affectsOthers):
-	pos(pos), vel(vel), mass(mass), radius(radius), color(color), affectedByGravity(affectedByGravity), affectsOthers(affectsOthers) {}
+	pos(pos), vel(vel), mass(mass), radius(radius), color(color), affectedByGravity(affectedByGravity), affectsOthers(affectsOthers) {
+		visited = std::vector<Vec2d>(200);
+}
 
 void CelestialBody::updatePos() {
+	if(visited.size() > 200) visited.erase(visited.begin());
+	visited.push_back(Vec2d(pos));
 	this->pos += this->vel;
 }
 
@@ -45,6 +49,13 @@ void CelestialBody::render(sf::RenderTexture& window) {
 	sf::CircleShape circle(this->radius, 512);
 	circle.setPosition(this->pos.x - this->radius, this->pos.y - this->radius);
 	circle.setFillColor(this->color);
+
+	for(int i = 0; i < visited.size(); i++) {
+		sf::RectangleShape point(sf::Vector2f(2, 2));
+		point.setPosition(visited[i].x - 0.5, visited[i].y - 0.5);
+		point.setFillColor(sf::Color(color.r, color.g, color.b, i));
+		window.draw(point);
+	}
 
 	if(this->selected) {
 		circle.setOutlineColor(sf::Color::Red);

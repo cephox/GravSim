@@ -9,6 +9,8 @@
 #define BODY_TAIL_LENGTH 200
 
 class CelestialBody {
+private:
+	std::vector<Vec2d> visited;
 public:
 	Vec2d pos;
 	Vec2d vel;

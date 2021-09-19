@@ -7,6 +7,7 @@
  */
 
 Vec2d::Vec2d(): x(0), y(0) {}
+Vec2d::Vec2d(const Vec2d& v): x(v.x), y(v.y) {}
 Vec2d::Vec2d(double x, double y): x(x), y(y) {}
 
 Vec2d Vec2d::fromAngle(double angle) {
