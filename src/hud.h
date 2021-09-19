@@ -13,7 +13,5 @@ public:
 	static sf::Font font;
 	static CelestialBody *selectedBody;
 
-	void render(sf::RenderTexture& hud);
-	void renderBodyInformation(sf::RenderTexture& hud);
-	void renderAttr(sf::RenderTexture& hud, std::string title, std::string value, int x, int y);
+	void render();
 };

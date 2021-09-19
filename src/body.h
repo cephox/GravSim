@@ -13,7 +13,7 @@ public:
 	Vec2d pos;
 	Vec2d vel;
 
-	double mass;
+	float mass;
 	int radius;
 
 	sf::Color color;
