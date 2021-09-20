@@ -1,6 +1,7 @@
 #include "vec2.h"
 
 #include <cmath>
+#include <iostream>
 
 /*
  * Vec2d implementation
@@ -49,6 +50,13 @@ double Vec2d::distanceSq(Vec2d &other) {
 
 double Vec2d::angle() {
 	return -std::atan2(-y, -x) + PI;
+}
+
+void Vec2d::setAngle(float rad) {
+	Vec2d v;
+	v = Vec2d::fromAngle(2 * PI - rad, magnitude());
+	x = v.x;
+	y = v.y;
 }
 
 void Vec2d::normalize() {

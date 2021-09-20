@@ -26,6 +26,7 @@ public:
 	double distanceSq(Vec2d& other);
 
 	double angle();
+	void setAngle(float rad);
 
 	void normalize();
 	void setMagnitude(double magnitude);

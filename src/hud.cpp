@@ -4,6 +4,7 @@
 
 #include "imgui.h"
 #include <random>
+#include <iostream>
 
 CelestialBody* Hud::selectedBody;
 
@@ -40,7 +41,11 @@ void Hud::render() {
 		float magnitude = (float) selectedBody->vel.magnitude();
 		ImGui::DragFloat("Speed", &magnitude, 0.05, -0, 100000, "%f pixels/step");
 		selectedBody->vel.setMagnitude(magnitude > 0 ? magnitude : 0);
-		
+
+		float angle = selectedBody->vel.angle();
+		ImGui::SliderAngle("Angle", &angle, 0);
+		selectedBody->vel.setAngle(angle);
+
 		float x = (float) selectedBody->vel.x;
 		ImGui::DragFloat("X Speed", &x, 0.05, -100000, 100000, "%f pixels/step");
 		selectedBody->vel.x = x;
